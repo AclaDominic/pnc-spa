@@ -1,82 +1,71 @@
 import React from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { galleryItems } from '../data/galleryData';
+import GalleryItem from './GalleryItem';
 
-const GalleryItem = () => {
-  const { id } = useParams();
-  const item = galleryItems.find(item => item.id === parseInt(id));
+const Gallery = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<GalleryMain />} />
+      <Route path="/:id" element={<GalleryItem />} />
+    </Routes>
+  );
+};
 
-  // Handle invalid IDs - DYNAMIC ROUTING WITH VALIDATION
-  if (!item) {
-    return (
-      <div className="container mt-5">
-        <div className="alert alert-danger">
-          <h4>Gallery Item Not Found</h4>
-          <p>The gallery item with ID {id} does not exist.</p>
-          <Link to="/gallery" className="btn btn-primary">
-            Back to Gallery
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
+const GalleryMain = () => {
   return (
     <div className="container mt-5">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="breadcrumb-item">
-            <Link to="/gallery">Gallery</Link>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            {item.title}
-          </li>
-        </ol>
-      </nav>
+      <div className="row">
+        <div className="col-12">
+          <h1 className="display-4 mb-4">PNC Facilities Gallery</h1>
+          <p className="lead mb-5">
+            Explore our state-of-the-art facilities and campus amenities that support student learning and development.
+          </p>
+        </div>
+      </div>
 
       <div className="row">
-        <div className="col-md-8">
-          <img 
-            src={item.image} 
-            alt={item.title}
-            className="img-fluid rounded shadow"
-          />
-        </div>
-        <div className="col-md-4">
-          <h1>{item.title}</h1>
-          <p className="lead">{item.description}</p>
-          <p>{item.fullDescription}</p>
-          
-          <div className="mt-4">
-            <h5>Facilities:</h5>
-            <ul>
-              {item.facilities.map((facility, index) => (
-                <li key={index}>{facility}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="row mt-4">
-            <div className="col-6">
-              <strong>Capacity:</strong>
-              <p>{item.capacity}</p>
+        {galleryItems.map((item) => (
+          <div key={item.id} className="col-lg-4 col-md-6 mb-4">
+            <div className="card h-100 shadow-sm">
+              <div className="card-img-top" style={{ height: '250px', overflow: 'hidden' }}>
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  className="img-fluid w-100 h-100"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">{item.title}</h5>
+                <p className="card-text flex-grow-1">{item.description}</p>
+                <div className="mt-auto">
+                  <div className="row mb-2">
+                    <div className="col-6">
+                      <small className="text-muted">
+                        <strong>Capacity:</strong> {item.capacity}
+                      </small>
+                    </div>
+                    <div className="col-6">
+                      <small className="text-muted">
+                        <strong>Established:</strong> {item.established}
+                      </small>
+                    </div>
+                  </div>
+                  <a 
+                    href={`/gallery/${item.id}`} 
+                    className="btn btn-primary btn-sm"
+                  >
+                    View Details
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="col-6">
-              <strong>Established:</strong>
-              <p>{item.established}</p>
-            </div>
           </div>
-
-          <Link to="/gallery" className="btn btn-outline-primary mt-3">
-            Back to Gallery
-          </Link>
-        </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default GalleryItem;
+export default Gallery;

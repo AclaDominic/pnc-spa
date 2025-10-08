@@ -40,34 +40,6 @@ const Header = () => {
                             <NavLink className={({isActive}) => isActive ? "nav-link active" : "nav-link"} to="/contact">Contact</NavLink>
                         </li>
 
-                        {/* DYNAMIC ROUTES EXAMPLE */}
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                Dynamic Routes
-                            </a>
-                            <ul className="dropdown-menu">
-                                <li>
-                                <NavLink className="dropdown-item" to="/gallery/1">
-                                    Gallery Item 1
-                                </NavLink>
-                                </li>
-                                <li>
-                                <NavLink className="dropdown-item" to="/gallery/2">
-                                    Gallery Item 2
-                                </NavLink>
-                                </li>
-                                <li>
-                                <NavLink className="dropdown-item" to="/about/team/john">
-                                    Team Member: John
-                                </NavLink>
-                                </li>
-                                <li>
-                                <NavLink className="dropdown-item" to="/about/team/jane">
-                                    Team Member: Jane
-                                </NavLink>
-                                </li>
-                            </ul>
-                        </li>
 
                         {/* PROTECTED ROUTES ACCESS */}
                         {isAuthenticated && (

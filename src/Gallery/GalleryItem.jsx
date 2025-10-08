@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { galleryItems } from '../../data/galleryData';
+import { galleryItems } from '../data/galleryData';
 
 const GalleryItem = () => {
   const { id } = useParams();
